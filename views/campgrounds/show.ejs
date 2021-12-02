@@ -1,12 +1,21 @@
 <% layout('layouts/boilerplate') %>
+<div class="mb-3">
+	<a href="/campgrounds" class="btn btn-outline-secondary" role="button"
+		>Back to Campgrounds</a
+	>
+</div>
 <h1>Welcome to <%= campground.title %></h1>
 <h2><%= campground.location %></h2>
-<div><a href="/campgrounds">Back to All Campgrounds</a></div>
-<div>
-	<a href="/campgrounds/<%= campground._id %>/edit">Edit Campground</a>
-</div>
-<div>
+
+<div class="mb-3">
 	<form action="/campgrounds/<%= campground.id %>?_method=DELETE" method="post">
-		<button type="submit">Delete Campground</button>
+		<a
+			href="/campgrounds/<%= campground._id %>/edit"
+			class="btn btn-primary"
+			role="button"
+			>Edit</a
+		>
+		<button type="submit" class="btn btn-danger">Delete</button>
 	</form>
 </div>
+<div></div>
