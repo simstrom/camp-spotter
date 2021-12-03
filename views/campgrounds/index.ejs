@@ -6,17 +6,51 @@
 	>
 </div>
 
-<div class="d-flex flex-wrap gap-3">
+<% for (let camp of campgrounds) { %>
+<div class="card">
+	<div class="row">
+		<div class="col-md-4">
+			<img src="<%= camp.image %> " class="img-fluid" alt="" />
+		</div>
+		<div class="col-md-8 d-flex align-items-center">
+			<div class="card-body">
+				<div class="d-flex align-items-center">
+					<div>
+						<h5 class="card-title mb-1"><%= camp.title %></h5>
+							<h6 class="card-subtitle mb-2 text-muted">
+							<%= camp.location %>
+							</h6>
+					</div>
+					<p class="card-text text-muted ms-auto">$<%= camp.price %> per Night</p>
+				</div>
+				<p class="card-text"><%= camp.description %></p>
+				<a
+					href="/campgrounds/<%= camp._id %>"
+					class="card-link btn btn-outline-secondary"
+					role="button"
+					>Details</a
+				>
+			</div>
+		</div>
+	</div>
+</div>
+	<% } %>
+
+<!-- <div class="d-flex flex-wrap gap-3">
 	<% for (let camp of campgrounds) { %>
 	<div class="card flex-fill" style="width: 18rem">
+		<img src="<%= camp.image %> " class="card-img-top img-fluid" alt="" />
 		<div class="card-body">
 			<h5 class="card-title"><%= camp.title %></h5>
 			<h6 class="card-subtitle mb-2 text-muted"><%= camp.location %></h6>
-			<a href="/campgrounds/<%= camp._id %>" class="card-link">Details</a>
+			<p class="card-text"><%= camp.description %></p>
+			<a
+				href="/campgrounds/<%= camp._id %>"
+				class="card-link btn btn-outline-secondary"
+				role="button"
+				>Details</a
+			>
 		</div>
 	</div>
-	<!-- <li>
-		<a href="/campgrounds/<%= camp._id %> "><%= camp.title %></a>
-	</li> -->
-	<% } %>
+	<% } %> -->
 </div>
