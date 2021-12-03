@@ -5,6 +5,8 @@
 		<form
 			action="/campgrounds/<%= campground._id %>?_method=PUT"
 			method="post"
+			class="validated-form"
+			novalidate
 		>
 			<div class="mb-3">
 				<label for="title" class="form-label">Name of Campground</label>
@@ -13,8 +15,11 @@
 					class="form-control"
 					name="campground[title]"
 					id="title"
-					value="<%= campground.title %> "
+					value="<%= campground.title %>"
+					required
 				/>
+				<div class="invalid-feedback">Please provide a name.</div>
+				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="mb-3">
 				<label for="location" class="form-label">Location</label>
@@ -23,8 +28,11 @@
 					class="form-control"
 					name="campground[location]"
 					id="location"
-					value="<%= campground.location %> "
+					value="<%= campground.location %>"
+					required
 				/>
+				<div class="invalid-feedback">Please provide a valid location.</div>
+				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="mb-3">
 				<label for="desc" class="form-label">Description</label>
@@ -34,9 +42,12 @@
 					class="form-control"
 					cols="30"
 					rows="5"
+					required
 				>
 <%= campground.description %></textarea
 				>
+				<div class="invalid-feedback">Please provide a short description.</div>
+				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="mb-3">
 				<label for="price" class="form-label">Price per night</label>
@@ -49,8 +60,11 @@
 						id="price"
 						placeholder="0.00"
 						aria-describedby="price-label"
-						value="<%= campground.price %> "
+						value="<%= campground.price %>"
+						required
 					/>
+					<div class="invalid-feedback">Please provide a price.</div>
+					<div class="valid-feedback">Looks good!</div>
 				</div>
 			</div>
 			<div class="mb-3">
@@ -60,8 +74,11 @@
 					class="form-control"
 					name="campground[image]"
 					id="image"
-					value="<%= campground.image %> "
+					value="<%= campground.image %>"
+					required
 				/>
+				<div class="invalid-feedback">Please provide an image.</div>
+				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="mb-3">
 				<button class="btn btn-success">Update</button>
