@@ -5,6 +5,7 @@ const { urlencoded } = require('express');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
+const { campgroundSchema } = require('./utils/validators');
 const ejsMate = require('ejs-mate');
 const Campground = require('./models/campground');
 
@@ -23,6 +24,12 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 app.use(urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+
+const validateCampground = (req, res, next) => {
+	const { error } = campgroundSchema.validate(req.body);
+	if (error) throw new ExpressError(400, error.details[0].message);
+	next();
+};
 
 app.get('/', (req, res) => {
 	res.render('home');
@@ -45,9 +52,8 @@ app.get('/campgrounds/new', (req, res) => {
 // Saves a new campground to the db.
 app.post(
 	'/campgrounds',
+	validateCampground,
 	catchAsync(async (req, res) => {
-		if (!req.body.campground)
-			throw new ExpressError(400, 'Invalid Campground Data');
 		const newCamp = new Campground(req.body.campground);
 		await newCamp.save();
 		res.redirect(`/campgrounds/${newCamp._id}`);
@@ -75,6 +81,7 @@ app.get(
 // Handles update request to individual campground.
 app.put(
 	'/campgrounds/:id',
+	validateCampground,
 	catchAsync(async (req, res) => {
 		if (!req.body.campground)
 			throw new ExpressError(400, 'Invalid Campground Data');
