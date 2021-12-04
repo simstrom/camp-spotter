@@ -2,7 +2,12 @@
 <div class="row">
 	<h1 class="mb-3 text-center">New Campground</h1>
 	<div class="col-6 offset-3">
-		<form action="/campgrounds" method="post" class="validated-form" novalidate>
+		<form
+			action="/campgrounds"
+			method="post"
+			class="validated-form"
+			novalidate
+		>
 			<div class="mb-3">
 				<label for="title" class="form-label">Name of Campground</label>
 				<input
@@ -13,7 +18,6 @@
 					required
 				/>
 				<div class="invalid-feedback">Please provide a name.</div>
-				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="mb-3">
 				<label for="location" class="form-label">Location</label>
@@ -24,8 +28,9 @@
 					id="location"
 					required
 				/>
-				<div class="invalid-feedback">Please provide a valid location.</div>
-				<div class="valid-feedback">Looks good!</div>
+				<div class="invalid-feedback">
+					Please provide a valid location.
+				</div>
 			</div>
 			<div class="mb-3">
 				<label for="desc" class="form-label">Description</label>
@@ -37,8 +42,9 @@
 					rows="5"
 					required
 				></textarea>
-				<div class="invalid-feedback">Please provide a short description.</div>
-				<div class="valid-feedback">Looks good!</div>
+				<div class="invalid-feedback">
+					Please provide a short description.
+				</div>
 			</div>
 			<div class="mb-3">
 				<label for="price" class="form-label">Price per night</label>
@@ -54,7 +60,6 @@
 						required
 					/>
 					<div class="invalid-feedback">Please provide a price.</div>
-					<div class="valid-feedback">Looks good!</div>
 				</div>
 			</div>
 			<div class="mb-3">
@@ -67,11 +72,13 @@
 					required
 				/>
 				<div class="invalid-feedback">Please provide an image.</div>
-				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="mb-3">
 				<button class="btn btn-success">Add</button>
-				<a href="/campgrounds" class="btn btn-outline-danger" role="button"
+				<a
+					href="/campgrounds"
+					class="btn btn-outline-danger"
+					role="button"
 					>Cancel</a
 				>
 			</div>
