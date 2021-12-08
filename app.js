@@ -8,6 +8,7 @@ const methodOverride = require('method-override');
 const { campgroundSchema } = require('./utils/validators');
 const ejsMate = require('ejs-mate');
 const Campground = require('./models/campground');
+const Review = require('./models/review');
 
 mongoose.connect('mongodb://localhost:27017/camp-spotter');
 
@@ -97,6 +98,18 @@ app.delete(
 	catchAsync(async (req, res) => {
 		await Campground.findByIdAndDelete(req.params.id);
 		res.redirect('/campgrounds');
+	})
+);
+
+app.post(
+	'/campgrounds/:id/reviews',
+	catchAsync(async (req, res) => {
+		const campground = await Campground.findById(req.params.id);
+		const review = new Review(req.body.review);
+		campground.reviews.push(review);
+		await review.save();
+		await campground.save();
+		res.redirect(`/campgrounds/${campground._id}`);
 	})
 );
 
