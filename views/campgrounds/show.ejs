@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') %>
 
 	<div class="row">
-		<div class="col-6 offset-3">
+		<div class="col-6">
 			<div class="mb-3">
 				<a href="/campgrounds" class="btn btn-outline-secondary" role="button">
 					Back to Campgrounds
@@ -33,17 +33,36 @@
 				</div>
 				<div class="card-footer text-muted">2 days ago</div>
 			</div>
+		</div>
+		<div class="col-6 mt-5">
 			<h2>Leave a Review</h2>
-			<form class="mb-3" action="/campgrounds/<%= campground._id %>/reviews" method="post">
+			<form class="mb-3 validated-form" action="/campgrounds/<%= campground._id %>/reviews" method="post"
+				novalidate>
 				<div class="mb-3">
 					<label class="form-label" for="rating">Rating</label>
 					<input class="form-range" type="range" name="review[rating]" id="rating" min="1" max="5">
 				</div>
 				<div class="mb-3">
 					<label class="form-label" for="body">Review</label>
-					<textarea class="form-control" name="review[body]" id="body" cols="30" rows="3"></textarea>
+					<textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+					<div class="invalid-feedback">Please provide a review.</div>
+					<div class="valid-feedback">Looks good!</div>
 				</div>
 				<button class="btn btn-success" type="submit">Add Review</button>
 			</form>
+			<div class="mb-3">
+				<% for (let review of campground.reviews) { %>
+					<div class="card mb-3">
+						<div class="card-body">
+							<h5 class="card-title">Rating: <%= review.rating %>
+							</h5>
+							<p class="card-text">
+								Review: <%= review.body %>
+							</p>
+						</div>
+					</div>
+					<% } %>
+
+			</div>
 		</div>
 	</div>
