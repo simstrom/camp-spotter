@@ -33,6 +33,7 @@ router.post(
 	catchAsync(async (req, res) => {
 		const newCamp = new Campground(req.body.campground);
 		await newCamp.save();
+		req.flash('success', 'Successfully created a new campground!');
 		res.redirect(`/campgrounds/${newCamp._id}`);
 	})
 );
@@ -44,6 +45,10 @@ router.get(
 		const campground = await Campground.findById(req.params.id).populate(
 			'reviews'
 		);
+		if (!campground) {
+			req.flash('error', `Sorry, we can't find that campground!`);
+			return res.redirect('/campgrounds');
+		}
 		res.render('campgrounds/show', { campground });
 	})
 );
@@ -53,6 +58,10 @@ router.get(
 	'/:id/edit',
 	catchAsync(async (req, res) => {
 		const campground = await Campground.findById(req.params.id);
+		if (!campground) {
+			req.flash('error', `Sorry, we can't find that campground!`);
+			return res.redirect('/campgrounds');
+		}
 		res.render('campgrounds/edit', { campground });
 	})
 );
@@ -66,6 +75,7 @@ router.put(
 			throw new ExpressError(400, 'Invalid Campground Data');
 		const { id } = req.params;
 		await Campground.findByIdAndUpdate(id, req.body.campground);
+		req.flash('success', 'Campground updated successfully!');
 		res.redirect(`/campgrounds/${id}`);
 	})
 );
@@ -75,6 +85,7 @@ router.delete(
 	'/:id',
 	catchAsync(async (req, res) => {
 		await Campground.findByIdAndDelete(req.params.id);
+		req.flash('success', 'Campground deleted successfully!');
 		res.redirect('/campgrounds');
 	})
 );
