@@ -1,17 +1,10 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const catchAsync = require('../utils/catchAsync');
-const { reviewSchema } = require('../utils/validators');
+const { validateReview } = require('../middleware');
 
-const ExpressError = require('../utils/ExpressError');
 const Review = require('../models/review');
 const Campground = require('../models/campground');
-
-const validateReview = (req, res, next) => {
-	const { error } = reviewSchema.validate(req.body);
-	if (error) throw new ExpressError(400, error.details[0].message);
-	next();
-};
 
 // Saves a new review to a specific campground
 router.post(
