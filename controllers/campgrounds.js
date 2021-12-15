@@ -54,6 +54,11 @@ module.exports.updateCampground = async (req, res) => {
 		req.body.campground
 	);
 	campground.updated = Date.now();
+	const imgs = req.files.map((file) => ({
+		url: file.path,
+		fileName: file.filename,
+	}));
+	campground.images.push(...imgs);
 	await campground.save();
 	req.flash('success', 'Campground updated successfully!');
 	res.redirect(`/campgrounds/${campground._id}`);

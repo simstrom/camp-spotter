@@ -16,7 +16,7 @@ const sample = (array) => {
 };
 
 const seedDatabase = async () => {
-	// await Campground.deleteMany({});
+	await Campground.deleteMany({});
 	for (let i = 0; i < 50; i++) {
 		const rand = Math.floor(Math.random() * 1000);
 		const price = Math.floor(Math.random() * 20) + 10;
@@ -24,10 +24,19 @@ const seedDatabase = async () => {
 			author: '61b90d49ae4bf38f7501c8aa',
 			location: `${locations[rand].city}, ${locations[rand].state}`,
 			title: `${sample(descriptors)} ${sample(places)}`,
-			image: 'https://source.unsplash.com/collection/483251',
 			description:
 				'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae natus ipsum, repudiandae officiis non esse nulla consectetur explicabo voluptate rerum. Repellat quod odio ducimus mollitia perferendis distinctio culpa blanditiis corrupti?',
 			price,
+			images: [
+				{
+					url: 'https://res.cloudinary.com/dzrlkv5wv/image/upload/v1639599118/CampSpotter/cmcuqebs9i5irrjk1v7c.jpg',
+					fileName: 'CampSpotter/cmcuqebs9i5irrjk1v7c',
+				},
+				{
+					url: 'https://res.cloudinary.com/dzrlkv5wv/image/upload/v1639599117/CampSpotter/n8roq7vawz1rshkglpmm.jpg',
+					fileName: 'CampSpotter/n8roq7vawz1rshkglpmm',
+				},
+			],
 		});
 		await camp.save();
 	}
