@@ -4,7 +4,12 @@ const Review = require('./review');
 
 const campgroundSchema = new Schema({
 	title: String,
-	image: String,
+	images: [
+		{
+			url: String,
+			fileName: String,
+		},
+	],
 	price: Number,
 	description: String,
 	location: String,
@@ -18,6 +23,10 @@ const campgroundSchema = new Schema({
 			ref: 'Review',
 		},
 	],
+	updated: {
+		type: Date,
+		default: new Date(),
+	},
 });
 
 // Middleware for removing reviews related to a deleted campground
