@@ -1,82 +1,91 @@
 <% layout('layouts/boilerplate') %>
-<div class="row">
-	<h1 class="mb-3 text-center">New Campground</h1>
-	<div class="col-6 offset-3">
-		<form
-			action="/campgrounds"
-			method="post"
-			class="validated-form"
-			novalidate
-			enctype="multipart/form-data"
-		>
-			<div class="mb-3">
-				<label for="title" class="form-label">Name</label>
-				<input
-					type="text"
-					class="form-control"
-					name="campground[title]"
-					id="title"
-					required
-				/>
-				<div class="invalid-feedback">Please provide a name.</div>
-			</div>
-			<div class="mb-3">
-				<label for="location" class="form-label">Location</label>
-				<input
-					type="text"
-					class="form-control"
-					name="campground[location]"
-					id="location"
-					required
-				/>
-				<div class="invalid-feedback">Please provide a valid location.</div>
-			</div>
-			<div class="mb-3">
-				<label for="desc" class="form-label">Description</label>
-				<textarea
-					name="campground[description]"
-					id="desc"
-					class="form-control"
-					cols="30"
-					rows="5"
-					required
-				></textarea>
-				<div class="invalid-feedback">Please provide a short description.</div>
-			</div>
-			<div class="mb-3">
-				<label for="price" class="form-label">Price per night</label>
-				<div class="input-group">
-					<span class="input-group-text" id="price-label">$</span>
+
+<div class="container mt-5">
+	<div class="row">
+		<h1 class="mb-3 text-center">New Campground</h1>
+		<div class="col-md-6 offset-md-3">
+			<form
+				action="/campgrounds"
+				method="post"
+				class="validated-form"
+				novalidate
+				enctype="multipart/form-data"
+			>
+				<div class="mb-3">
+					<label for="title" class="form-label">Name</label>
 					<input
 						type="text"
 						class="form-control"
-						name="campground[price]"
-						id="price"
-						placeholder="0.00"
-						aria-describedby="price-label"
+						name="campground[title]"
+						id="title"
 						required
 					/>
-					<div class="invalid-feedback">Please provide a price.</div>
+					<div class="invalid-feedback">Please provide a name.</div>
 				</div>
-			</div>
-			<div class="mb-4">
-				<label for="image" class="form-label">Upload Images</label>
-				<input
-					type="file"
-					name="image"
-					id="image"
-					class="form-control"
-					multiple
-					required
-				/>
-				<div class="invalid-feedback">Please provide at least one image.</div>
-			</div>
-			<div class="mb-3">
-				<button class="btn btn-success">Add</button>
-				<a href="/campgrounds" class="btn btn-outline-danger" role="button">
-					Cancel
-				</a>
-			</div>
-		</form>
+				<div class="mb-3">
+					<label for="location" class="form-label">Location</label>
+					<input
+						type="text"
+						class="form-control"
+						name="campground[location]"
+						id="location"
+						required
+					/>
+					<div class="invalid-feedback">Please provide a valid location.</div>
+				</div>
+				<div class="mb-3">
+					<label for="desc" class="form-label">Description</label>
+					<textarea
+						name="campground[description]"
+						id="desc"
+						class="form-control"
+						cols="30"
+						rows="5"
+						required
+					></textarea>
+					<div class="invalid-feedback">
+						Please provide a short description.
+					</div>
+				</div>
+				<div class="mb-3">
+					<label for="price" class="form-label">Price per night</label>
+					<div class="input-group">
+						<span class="input-group-text" id="price-label">$</span>
+						<input
+							type="text"
+							class="form-control"
+							name="campground[price]"
+							id="price"
+							placeholder="0.00"
+							aria-describedby="price-label"
+							required
+						/>
+						<div class="invalid-feedback">Please provide a price.</div>
+					</div>
+				</div>
+				<div class="mb-4">
+					<label for="image" class="form-label">Upload Images</label>
+					<input
+						type="file"
+						name="image"
+						id="image"
+						class="form-control"
+						multiple
+						required
+					/>
+					<div class="invalid-feedback">Please provide at least one image.</div>
+				</div>
+				<div class="mb-3 d-flex gap-2">
+					<button class="btn btn-primary flex-fill">Add</button>
+					<a
+						href="/campgrounds"
+						class="btn btn-outline-danger flex-fill"
+						role="button"
+					>
+						Cancel
+					</a>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
