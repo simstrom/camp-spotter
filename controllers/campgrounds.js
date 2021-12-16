@@ -3,6 +3,16 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const geocoder = mbxGeocoding({ accessToken: process.env.MAPBOX_TOKEN });
 const { cloudinary } = require('../cloudinary');
 
+const getGeoData = async (req) => {
+	const geoData = await geocoder
+		.forwardGeocode({
+			query: req.body.campground.location,
+			limit: 1,
+		})
+		.send();
+	return geoData;
+};
+
 module.exports.index = async (req, res) => {
 	const campgrounds = await Campground.find({});
 	res.render('campgrounds/index', { campgrounds });
@@ -13,13 +23,9 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.createCampground = async (req, res) => {
-	const geoData = await geocoder
-		.forwardGeocode({
-			query: req.body.campground.location,
-			limit: 1,
-		})
-		.send();
+	const geoData = await getGeoData(req);
 	const campground = new Campground(req.body.campground);
+	campground.location = geoData.body.features[0].place_name;
 	campground.geometry = geoData.body.features[0].geometry;
 	campground.images = req.files.map((file) => ({
 		url: file.path,
@@ -59,10 +65,13 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateCampground = async (req, res) => {
 	const { id } = req.params;
+	const geoData = await getGeoData(req);
 	const campground = await Campground.findByIdAndUpdate(
 		id,
 		req.body.campground
 	);
+	campground.location = geoData.body.features[0].place_name;
+	campground.geometry = geoData.body.features[0].geometry;
 	campground.updated = Date.now();
 	const imgs = req.files.map((file) => ({
 		url: file.path,
@@ -83,7 +92,10 @@ module.exports.updateCampground = async (req, res) => {
 };
 
 module.exports.deleteCampground = async (req, res) => {
-	await Campground.findByIdAndDelete(req.params.id);
+	const campground = await Campground.findByIdAndDelete(req.params.id);
+	for (let img of campground.images) {
+		await cloudinary.uploader.destroy(img.filename);
+	}
 	req.flash('success', 'Campground deleted successfully!');
 	res.redirect('/campgrounds');
 };
