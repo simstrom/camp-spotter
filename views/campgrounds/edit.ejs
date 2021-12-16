@@ -1,4 +1,5 @@
 <% layout('layouts/boilerplate') %>
+
 <div class="row">
 	<h1 class="mb-3 text-center">Edit Campground</h1>
 	<div class="col-6 offset-3">
@@ -73,6 +74,31 @@
 					class="form-control"
 					multiple
 				/>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Delete Images</label>
+				<div class="d-flex flex-wrap">
+					<% campground.images.forEach((img, i) => { %>
+					<div class="d-flex flex-column">
+						<label for="img-<%=i%>">
+							<img
+								src="<%= img.thumbnail %> "
+								class="rounded m-1"
+								style="width: 150px; height: 150px; object-fit: cover"
+							/>
+						</label>
+						<div class="form-check-inline">
+							<input
+								type="checkbox"
+								name="deleteImages[]"
+								id="img-<%=i%>"
+								value="<%= img.filename %>"
+							/>
+							<label for="img-<%=i%>">Delete?</label>
+						</div>
+					</div>
+					<% }) %>
+				</div>
 			</div>
 			<div class="mb-3">
 				<button class="btn btn-success">Update</button>

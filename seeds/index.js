@@ -29,7 +29,7 @@ const seedDatabase = async () => {
 			price,
 			images: [
 				{
-					url: 'https://res.cloudinary.com/dzrlkv5wv/image/upload/v1639599118/CampSpotter/cmcuqebs9i5irrjk1v7c.jpg',
+					url: 'https://res.cloudinary.com/dzrlkv5wv/image/upload/v1639597807/CampSpotter/crhgi7gjlh0tckjg5mgj.jpg',
 					fileName: 'CampSpotter/cmcuqebs9i5irrjk1v7c',
 				},
 				{
