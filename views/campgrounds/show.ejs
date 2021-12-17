@@ -1,77 +1,83 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/styles/stars.css">
 
-<div class="container mt-5">
+<div class="container mt-3">
 <div class="row">
-	<div class="col-6">
-		<div class="mb-3">
-			<a href="/campgrounds" class="btn btn-outline-secondary" role="button">
-				Back to Campgrounds
-			</a>
-		</div>
-
-		<div id="campgroundCarousel" class="carousel slide" data-bs-ride="carousel">
-			<div class="carousel-inner">
-				<% campground.images.forEach((img, i) => { %>
-					<div class="carousel-item <%= i === 0 ? 'active' : ''%>">
-						<img src="<%= img.url %> " class="d-block w-100" alt="">
-					  </div>
-				<% }) %>
+	<div class="mb-3">
+		<a href="/campgrounds" class="btn btn-outline-secondary" role="button">
+			Back to Campgrounds
+		</a>
+	</div>
+	<div class="col-lg-6">
+		<div class="card shadow mb-5">
+			<div id="campgroundCarousel" class="carousel slide card-img-top" data-bs-ride="carousel">
+				<div class="carousel-inner">
+					<% campground.images.forEach((img, i) => { %>
+						<div class="carousel-item <%= i === 0 ? 'active' : ''%>">
+							<img src="<%= img.url %> " class="d-block w-100" alt="">
+						</div>
+					<% }) %>
+				</div>
+				<% if (campground.images.length > 1) { %> 
+				<button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+				</button>
+				<% } %> 
 			</div>
-			<% if (campground.images.length > 1) { %> 
-			<button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="prev">
-			  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			  <span class="visually-hidden">Previous</span>
-			</button>
-			<button class="carousel-control-next" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="next">
-			  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			  <span class="visually-hidden">Next</span>
-			</button>
-			<% } %> 
-		  </div>
-
-		<div class="card mb-5">
+		
 			<div class="card-body">
-				<h5 class="card-title mb-1"><%= campground.title %></h5>
-				<h6 class="card-subtitle text-muted mb-2">
+				<h1 class="card-title mb-2"><%= campground.title %></h1>
+				<h5 class="card-subtitle text-muted">
 					<%= campground.location %>
-				</h6>
-				<p class="card-text"><%= campground.description %></p>
+				</h5>
 			</div>
+
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item">$<%= campground.price %> per Night</li>
-				<li class="list-group-item text-muted text-sm">
-					Submitted by: 
+				<li class="list-group-item text-primary py-3">$<%= campground.price %> / night</li>
+				<li class="list-group-item py-4"><%= campground.description %></li>
+			</ul>
+
+			<% if (currentUser && campground.author.equals(currentUser._id)) { %>
+				<div class="card-body py-3">
+					<a
+						href="/campgrounds/<%= campground._id %>/edit"
+						class="btn btn-primary"
+						role="button"
+					>
+						Edit
+					</a>
+					<form
+						class="d-inline"
+						action="/campgrounds/<%= campground.id %>?_method=DELETE"
+						method="post"
+					>
+						<button type="submit" id="del-btn" class="btn btn-outline-danger">Delete</button>
+					</form>
+				</div>
+				<% } %>
+
+			<ul class="list-group d-flex flex-row">
+				<li class="list-group-item text-muted border-0 py-3">
+					Submitted By:
 					<% if (currentUser && campground.author.equals(currentUser._id)) { %>
-						you
+						You
 					<% } else { %> 
-						<%= campground.author.username %></h6>
+						<%= campground.author.capitalized %></h6>
 					<% } %>
 				</li>
+				<li class="list-group-item text-muted flex-grow-1 border-bottom-0 border-right-0 py-3">
+					Updated: <%= campground.updated.toLocaleDateString() %>
+				</li>
 			</ul>
-			<% if (currentUser && campground.author.equals(currentUser._id)) { %>
-			<div class="card-body">
-				<a
-					href="/campgrounds/<%= campground._id %>/edit"
-					class="btn btn-primary"
-					role="button"
-				>
-					Edit
-				</a>
-				<form
-					class="d-inline"
-					action="/campgrounds/<%= campground.id %>?_method=DELETE"
-					method="post"
-				>
-					<button type="submit" id="del-btn" class="btn btn-outline-danger">Delete</button>
-				</form>
-			</div>
-			<% } %>
-			<div class="card-footer text-muted">Last Updated: <%= campground.updated.toLocaleDateString() %> </div>
 		</div>
 	</div>
-	<div class="col-6 mt-5">
-		<div id="details-map" class="mb-3"></div>
+	<div class="col-lg-6">
+		<div id="details-map" class="mb-5"></div>
 		<% if (currentUser) { %>
 		<h2>Leave a Review</h2>
 		<form
@@ -110,43 +116,50 @@
 			<button class="btn btn-success" type="submit">Add Review</button>
 		</form>
 		<% } %>
-		<div class="mb-3">
-			<h2>All Reviews</h2>
-			<% if (!campground.reviews.length) { %>
-			<p>There's no reviews for this Campground yet!</p>
-			<% } %>
+	</div>
+	<div class="container mt-3">
+		<h3>All Reviews</h3>
+		<% if (!campground.reviews.length) { %>
+		<p>There's no reviews for this Campground yet!</p>
+		<% } %>
+
+		<div class="d-flex flex-wrap justify-content-between">
 			<% campground.reviews.reverse() %>  
 			<% for (let review of campground.reviews) { %>
-			<div class="card mb-3">
-				<div class="card-body">
-					<h5 class="card-title mb-2"> 
+				<div class="card review-item mb-3">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<p class="starability-result" data-rating="<%= review.rating %>">
+								Rated: <%= review.rating %> stars
+							</p>
+							<% if (currentUser && review.author.equals(currentUser._id)) { %> 
+								<form
+									action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+									method="post"
+								>
+									<button class="btn btn-sm btn-outline-danger" type="submit">
+										Delete
+									</button>
+								</form>
+								<% } %> 
+						</div>
+						<p class="card-text mb-2"><%= review.body %></p>
+					</div>
+					<div class="card-footer d-flex justify-content-between align-items-center"> 
+						<div>Posted By:</div>
+						<div class="text-primary">
 						<% if (currentUser && review.author.equals(currentUser._id)) { %>
-							you
+							You
 							<% } else { %> 
-						<%= review.author.username %></h6>
+						<%= review.author.capitalized %>
 						<% } %> 
-					</h5>
-					<p class="starability-result" data-rating="<%= review.rating %>">
-						Rated: <%= review.rating %> stars
-					  </p>
-					<p class="card-text mb-2"><%= review.body %></p>
-					<p class="card-text text-muted">Posted on: <%= review.created.toLocaleDateString() %></p>
-					<% if (currentUser && review.author.equals(currentUser._id)) { %> 
-					<form
-						action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
-						method="post"
-					>
-						<button class="btn btn-sm btn-outline-danger" type="submit">
-							Delete
-						</button>
-					</form>
-					<% } %> 
+						<span class="text-muted"> &vert; <%= review.created.toLocaleDateString() %></span>
+						</div>
+					</div>
 				</div>
-			</div>
 			<% } %>
 		</div>
 	</div>
-</div>
 </div>
 
 <script>
