@@ -96,6 +96,15 @@
 	width: 49%;
 }
 
+.profile-img {
+	object-fit: cover;
+	height: 100%;
+}
+
+.profile-link {
+	text-decoration: none;
+}
+
 @media screen and (max-width: 768px) {
 	.review-item {
 		width: 100%;

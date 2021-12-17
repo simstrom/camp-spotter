@@ -78,7 +78,6 @@
 	</div>
 	<div class="col-lg-6">
 		<div id="details-map" class="mb-5"></div>
-		<% if (currentUser) { %>
 		<h2>Leave a Review</h2>
 		<form
 			class="mb-5 validated-form"
@@ -101,6 +100,7 @@
 					<label for="first-rate5" title="Amazing">5 stars</label>
 				  </fieldset>
 			</div>
+			<% if (currentUser) { %>
 			<div class="mb-3">
 				<label class="form-label" for="body">Review</label>
 				<textarea
@@ -115,12 +115,20 @@
 			</div>
 			<button class="btn btn-success" type="submit">Add Review</button>
 		</form>
-		<% } %>
+		<% } else { %>
+			<div class="mb-3 text-muted"> 
+				<small>
+				Please <a href="/login">Log in</a> or 
+				<a href="/register">Sign up</a>
+					to leave a review for this campground.
+				</small>
+			</div>
+		<% } %> 
 	</div>
 	<div class="container mt-3">
-		<h3>All Reviews</h3>
+		<h2>All Reviews</h2>
 		<% if (!campground.reviews.length) { %>
-		<p>There's no reviews for this Campground yet!</p>
+		<p>There's no reviews for <%= campground.title %> yet!</p>
 		<% } %>
 
 		<div class="d-flex flex-wrap justify-content-between">

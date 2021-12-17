@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const Campground = require('../models/campground');
+const Review = require('../models/review');
 const { capitalize } = require('../utils/utility');
 
 module.exports.renderRegister = (req, res) => {
@@ -42,4 +44,15 @@ module.exports.logout = (req, res) => {
 	req.logOut();
 	req.flash('success', 'Logged out. See you later!');
 	res.redirect('/campgrounds');
+};
+
+module.exports.profile = async (req, res) => {
+	const id = res.locals.currentUser._id;
+	const campgrounds = (
+		await Campground.find({ author: { $in: id } })
+	).reverse();
+	const reviews = (
+		await Review.find({ author: { $in: id } }).populate('campground')
+	).reverse();
+	res.render('users/profile', { campgrounds, reviews });
 };

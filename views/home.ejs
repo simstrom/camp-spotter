@@ -13,12 +13,12 @@
 		/>
 		<link rel="stylesheet" href="/styles/home.css" />
 	</head>
-	<body class="d-flex text-center text-white bg-dark">
+	<body class="container text-center text-white bg-dark">
 		<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 			<header class="mb-auto">
-				<nav class="navbar nav-masthead navbar-expand-lg">
-					<div class="container-fluid">
-						<a class="navbar-brand" href="/">CampSpotter</a>
+				<nav class="navbar navbar-expand-md navbar-dark p-2">
+					<div class="container">
+						<a class="navbar-brand" href="#">CampSpotter</a>
 						<button
 							class="navbar-toggler"
 							type="button"
@@ -32,12 +32,13 @@
 						</button>
 						<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 							<div class="navbar-nav ms-auto">
-								<a class="nav-link active" href="/">Home</a>
+								<a class="nav-link active" href="#">Home</a>
 								<a class="nav-link" href="/campgrounds">Campgrounds</a>
 								<% if (!currentUser) { %>
 								<a href="/login" class="nav-link">Login</a>
 								<a href="/register" class="nav-link">Register</a>
 								<% } else { %>
+								<a href="/logout" class="nav-link">My Profile</a>
 								<a href="/logout" class="nav-link">Logout</a>
 								<% } %>
 							</div>
@@ -45,6 +46,7 @@
 					</div>
 				</nav>
 			</header>
+
 			<main class="px-3">
 				<h3 class="subtitle">Welcome To</h3>
 				<h1>CampSpotter</h1>
