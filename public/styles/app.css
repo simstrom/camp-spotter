@@ -6,6 +6,14 @@
 }
 
 #cluster-map {
+	position: absolute;
+	top: 62px;
+	left: 0;
+	width: 100%;
+	height: 500px;
+}
+
+#cluster-map-spacing {
 	width: 100%;
 	height: 500px;
 }
@@ -13,4 +21,45 @@
 #details-map {
 	width: 100%;
 	height: 300px;
+}
+
+.alert {
+	z-index: 1;
+}
+
+.custom-file-label {
+	margin-top: 0.5rem;
+	font-size: 0.85rem;
+	line-height: 1.4;
+	color: #000a;
+}
+
+.invalid {
+	border-color: #dc3545;
+}
+
+.invalid-text {
+	color: #dc3545;
+}
+
+#edit-image-container {
+	position: relative;
+}
+
+#overlay {
+	position: absolute;
+	top: 0;
+	background: #971a2680; /* Black see-through */
+	width: 100%;
+	height: 100%;
+	transition: 0.5s ease;
+}
+
+.hidden {
+	opacity: 0;
+}
+
+#overlay:hover {
+	opacity: 1;
+	cursor: pointer;
 }

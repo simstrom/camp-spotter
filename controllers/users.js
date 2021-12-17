@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const { capitalize } = require('../utils/utility');
 
 module.exports.renderRegister = (req, res) => {
 	if (req.isAuthenticated()) {
@@ -14,7 +15,7 @@ module.exports.register = async (req, res, next) => {
 		const registeredUser = await User.register(user, password);
 		req.login(registeredUser, (err) => {
 			if (err) return next(err);
-			req.flash('success', 'Welcome to CampSpotter!');
+			req.flash('success', `Welcome to CampSpotter, ${capitalize(username)}!`);
 			res.redirect('/campgrounds');
 		});
 	} catch (err) {
@@ -31,7 +32,7 @@ module.exports.renderLogin = (req, res) => {
 };
 
 module.exports.login = (req, res) => {
-	req.flash('success', `Welcome back!`);
+	req.flash('success', `Welcome back, ${capitalize(req.user.username)}!`);
 	const returnUrl = req.session.returnUrl || '/campgrounds';
 	delete req.session.returnUrl;
 	res.redirect(returnUrl);

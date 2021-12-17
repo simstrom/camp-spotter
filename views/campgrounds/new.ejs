@@ -70,13 +70,17 @@
 						name="image"
 						id="image"
 						class="form-control"
+						accept=".png, .jpg, .jpeg"
 						multiple
 						required
 					/>
+					<div class="custom-file-label">
+						You can upload a maximum of 3 photos
+					</div>
 					<div class="invalid-feedback">Please provide at least one image.</div>
 				</div>
 				<div class="mb-3 d-flex gap-2">
-					<button class="btn btn-primary flex-fill">Add</button>
+					<button class="btn btn-primary flex-fill add">Add</button>
 					<a
 						href="/campgrounds"
 						class="btn btn-outline-danger flex-fill"
