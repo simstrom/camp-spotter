@@ -99,3 +99,11 @@ module.exports.deleteCampground = async (req, res) => {
 	req.flash('success', 'Campground deleted successfully!');
 	res.redirect('/campgrounds');
 };
+
+module.exports.searchCampgrounds = async (req, res) => {
+	const query = req.query.q ? req.query.q.match(/\w+/g).join(' ') : '';
+	const campgrounds = await Campground.find({
+		$text: { $search: query },
+	});
+	res.render('campgrounds/search', { query, campgrounds });
+};

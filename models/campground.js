@@ -49,6 +49,11 @@ const campgroundSchema = new Schema(
 	opts
 );
 
+campgroundSchema.index({
+	title: 'text',
+	location: 'text',
+});
+
 campgroundSchema.virtual('properties.popupMarkup').get(function () {
 	return `<h6><a href="/campgrounds/${this._id}">${this.title}</a></h6>
 			<p>${this.location}</p>`;

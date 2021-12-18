@@ -18,7 +18,10 @@ const userRouter = require('./routes/users');
 const campgroundRouter = require('./routes/campgrounds');
 const reviewRouter = require('./routes/reviews');
 
-mongoose.connect('mongodb://localhost:27017/camp-spotter');
+mongoose.connect('mongodb://localhost:27017/camp-spotter', {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection Error:'));

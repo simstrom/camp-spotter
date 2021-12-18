@@ -1,0 +1,42 @@
+<%- layout('layouts/boilerplate') %>
+
+<div class="container mt-3">
+    <div class="mb-3">
+		<a href="/campgrounds" class="btn btn-outline-secondary" role="button">
+			Back to Campgrounds
+		</a>
+        <h1 class="mt-5">Search for '<%= query %>'</h1>
+        <p class="text-muted">Displaying <%= campgrounds.length %> results</p>
+	</div>
+
+	<% for (let camp of campgrounds) { %>
+		<div class="card mb-3">
+			<div class="row">
+				<div class="col-md-4">
+					<img src="<%= camp.images[0].url %> " class="img-fluid" alt="" />
+				</div>
+				<div class="col-md-8 d-flex align-items-center">
+					<div class="card-body">
+						<div class="d-flex align-items-center">
+							<div>
+								<h5 class="card-title mb-1">
+									<%= camp.title %>
+								</h5>
+								<h6 class="card-subtitle mb-2 text-muted">
+									<%= camp.location %>
+								</h6>
+							</div>
+							<p class="card-text text-muted ms-auto">$<%= camp.price %> per Night</p>
+						</div class>
+						<p class="card-text">
+							<%= camp.description %>
+						</p>
+						<a href="/campgrounds/<%= camp._id %>" class="card-link btn btn-outline-secondary"
+							role="button">Details</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% } %>
+	</div>
+</div>

@@ -19,6 +19,8 @@ router
 
 router.get('/new', isLoggedIn, controller.renderNewForm);
 
+router.get('/search', catchAsync(controller.searchCampgrounds));
+
 router
 	.route('/:id')
 	.get(catchAsync(controller.showCampground))

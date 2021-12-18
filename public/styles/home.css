@@ -20,6 +20,9 @@ body {
 	color: rgba(255, 255, 255, 0.7);
 	border-bottom: 0.2rem solid transparent;
 	transition: all 0.5s;
+}
+
+.nav-link {
 	margin-left: 1rem;
 }
 
@@ -59,4 +62,14 @@ main h3 {
 .btn:hover {
 	background-color: rgb(92, 138, 236);
 	border-color: rgb(92, 138, 236);
+}
+
+@media screen and (max-width: 768px) {
+	main h1 {
+		font-size: 3rem;
+	}
+
+	.lead {
+		font-size: 1.1rem;
+	}
 }
