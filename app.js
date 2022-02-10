@@ -10,6 +10,7 @@ const flash = require('connect-flash');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
+const mongoSanitize = require('express-mongo-sanitize');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
@@ -38,6 +39,7 @@ app.set('views', path.join(__dirname, '/views'));
 app.use(urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(mongoSanitize());
 
 const sessionConfig = {
 	secret: 'this-is-secret',
