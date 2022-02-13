@@ -16,7 +16,8 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const helmet = require('helmet');
 const MongoStore = require('connect-mongo');
-const dbUrl = 'mongodb://localhost:27017/camp-spotter';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/camp-spotter';
+const secret = process.env.SECRET || 'this-is-secret';
 
 const userRouter = require('./routes/users');
 const campgroundRouter = require('./routes/campgrounds');
@@ -46,7 +47,7 @@ app.use(mongoSanitize());
 
 const store = MongoStore.create({
 	mongoUrl: dbUrl,
-	secret: 'this-is-secret',
+	secret,
 	touchAfter: 24 * 60 * 60,
 });
 
@@ -57,7 +58,7 @@ store.on('error', (err) => {
 const sessionConfig = {
 	store,
 	name: 'session',
-	secret: 'this-is-secret',
+	secret,
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
