@@ -17,3 +17,6 @@ Built for the purpose to learn how to use dynamic templating and integrating a d
 ### Services
 - Cloudinary API for file storage
 - Mapbox API for map integration
+
+## Preview
+![camp-spotter](https://user-images.githubusercontent.com/52610222/219021686-496debdd-add9-4871-8336-106013dc9eb6.png)
